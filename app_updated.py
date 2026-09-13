@@ -80,19 +80,90 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .stApp { background-color: #090d16; color: #f1f5f9; }
-    .card {
-        background: #1e293b; padding: 18px; border-radius: 12px;
-        margin-bottom: 12px; border-left: 4px solid #10b981;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap');
+
+    :root {
+        --ww-bg: #07130f;
+        --ww-surface: rgba(15, 35, 28, 0.82);
+        --ww-surface-2: rgba(21, 48, 38, 0.72);
+        --ww-border: rgba(110, 231, 183, 0.18);
+        --ww-green: #34d399;
+        --ww-green-2: #10b981;
+        --ww-text: #f0fdf4;
+        --ww-muted: #a7c7ba;
     }
+
+    html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Poppins', sans-serif !important; letter-spacing: -0.02em; }
+    .stApp {
+        background:
+            radial-gradient(circle at 8% 5%, rgba(16,185,129,.18), transparent 28%),
+            radial-gradient(circle at 92% 12%, rgba(52,211,153,.10), transparent 24%),
+            linear-gradient(135deg, #06100d 0%, #0a1712 52%, #06100d 100%);
+        color: var(--ww-text);
+    }
+    [data-testid="stHeader"] { background: transparent; }
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #07130f 0%, #0b1c15 100%);
+        border-right: 1px solid var(--ww-border);
+    }
+    [data-testid="stSidebar"] * { font-family: 'Inter', sans-serif; }
+
+    .ww-brand {
+        display:flex; align-items:center; gap:12px; margin: 4px 0 22px;
+    }
+    .ww-logo {
+        width:46px; height:46px; border-radius:14px; display:grid; place-items:center;
+        background: linear-gradient(135deg, #34d399, #059669);
+        box-shadow: 0 10px 30px rgba(16,185,129,.28); font-size:24px;
+    }
+    .ww-brand-title { font:800 20px 'Poppins', sans-serif; color:#ecfdf5; }
+    .ww-brand-sub { font-size:11px; color:var(--ww-muted); margin-top:-2px; }
+
+    .ww-hero {
+        padding: 28px 30px; border-radius:24px; margin-bottom:22px;
+        background: linear-gradient(135deg, rgba(16,185,129,.20), rgba(6,78,59,.30));
+        border:1px solid var(--ww-border); box-shadow: 0 18px 55px rgba(0,0,0,.18);
+        position:relative; overflow:hidden;
+    }
+    .ww-hero:after {
+        content:'♻'; position:absolute; right:30px; top:-18px; font-size:130px; opacity:.06;
+    }
+    .ww-kicker { color:#6ee7b7; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; }
+    .ww-hero h1 { margin:4px 0 5px; font-size:34px; color:#ecfdf5; }
+    .ww-hero p { margin:0; color:#b7d8cb; font-size:14px; }
+
     .stat {
-        background: #0f172a; padding: 12px; border-radius: 10px;
-        text-align: center; border: 1px solid #1e293b;
+        background: linear-gradient(145deg, rgba(16,185,129,.13), rgba(15,23,42,.55));
+        padding:18px 16px; border-radius:18px; text-align:left;
+        border:1px solid var(--ww-border); min-height:82px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.12);
     }
-    .profile-card {
-        background: #131d31; padding: 20px; border-radius: 14px;
-        border: 1px solid #334155;
+    .stat-label { color:#9cc4b6; font-size:12px; font-weight:600; }
+    .stat-value { color:#ecfdf5; font:800 25px 'Poppins', sans-serif; margin-top:3px; }
+
+    .card, .profile-card {
+        background: var(--ww-surface); padding:20px; border-radius:18px;
+        margin-bottom:14px; border:1px solid var(--ww-border);
+        box-shadow: 0 12px 34px rgba(0,0,0,.16);
     }
+    .result-title { color:#6ee7b7; font-size:12px; text-transform:uppercase; letter-spacing:.1em; font-weight:800; }
+    .result-name { font:700 24px 'Poppins', sans-serif; color:#f0fdf4; margin:2px 0 10px; }
+    .pill { display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(52,211,153,.12); color:#a7f3d0; border:1px solid rgba(52,211,153,.18); font-size:12px; font-weight:700; }
+
+    .stButton > button, .stFormSubmitButton > button {
+        border-radius:12px !important; border:1px solid rgba(52,211,153,.28) !important;
+        font-weight:700 !important; transition: all .2s ease !important;
+    }
+    .stButton > button:hover, .stFormSubmitButton > button:hover {
+        transform: translateY(-1px); box-shadow:0 8px 24px rgba(16,185,129,.18);
+    }
+    .stTabs [data-baseweb="tab-list"] { gap:6px; background:rgba(4,15,11,.55); padding:7px; border-radius:15px; }
+    .stTabs [data-baseweb="tab"] { border-radius:10px; padding:9px 15px; }
+    .stTabs [aria-selected="true"] { background:rgba(16,185,129,.16); }
+    .stTextInput input, .stTextArea textarea, .stSelectbox div[data-baseweb="select"] > div { border-radius:12px !important; }
+    [data-testid="stFileUploader"] { border-radius:16px; }
+    .ww-footer { text-align:center; color:#789a8d; font-size:11px; padding:22px 0 8px; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -136,6 +207,12 @@ POINTS_BY_HAZARD = {
     "high": 30,
     "unknown": 10,
 }
+
+
+def esc(value):
+    """Escape dynamic text before placing it in custom HTML."""
+    import html
+    return html.escape(str(value or ""))
 
 
 # ----------------------------
@@ -617,8 +694,16 @@ def logout():
 # Login / registration screen
 # ----------------------------
 if not st.session_state.authenticated:
-    st.title("♻️ WasteWise AI Portal")
-    st.caption("AI-assisted waste identification and recycling tracker.")
+    st.markdown(
+        """
+        <div class="ww-hero" style="max-width:900px;margin:40px auto 22px;">
+            <div class="ww-kicker">SMART RECYCLING • AI POWERED</div>
+            <h1>♻️ WasteWise AI Portal</h1>
+            <p>Identify waste, discover safer disposal options, track your eco-impact, and climb the leaderboard.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     login_tab, register_tab = st.tabs(["🔐 Login", "➕ Create Account"])
 
@@ -680,8 +765,11 @@ stats = get_user_stats(st.session_state.user_id)
 # ----------------------------
 # Sidebar
 # ----------------------------
-st.sidebar.title("👤 Account")
-st.sidebar.write(f"**{current_user['username']}**")
+st.sidebar.markdown(
+    """<div class="ww-brand"><div class="ww-logo">♻️</div><div><div class="ww-brand-title">WasteWise</div><div class="ww-brand-sub">AI Recycling Assistant</div></div></div>""",
+    unsafe_allow_html=True,
+)
+st.sidebar.markdown(f"<div class='pill'>👤 {esc(current_user['username'])}</div>", unsafe_allow_html=True)
 if st.sidebar.button("Log out", use_container_width=True):
     logout()
 
@@ -694,35 +782,19 @@ st.sidebar.caption(
 # ----------------------------
 # Header
 # ----------------------------
-head_col1, head_col2 = st.columns([1, 5])
-
-with head_col1:
-    pic = current_user["profile_pic"]
-    if pic and os.path.isfile(pic):
-        st.image(pic, width=80)
-    else:
-        st.markdown(
-            "<h1 style='text-align:center;margin:0;'>👤</h1>",
-            unsafe_allow_html=True,
-        )
-
-with head_col2:
-    st.markdown("## ♻️ WasteWise Portal")
-    st.markdown(f"Logged in as **{current_user['username']}**")
+st.markdown(
+    f"""<div class="ww-hero">
+        <div class="ww-kicker">YOUR ECO DASHBOARD</div>
+        <h1>Welcome back, {esc(current_user['username'])} 👋</h1>
+        <p>Turn everyday waste into measurable environmental impact.</p>
+    </div>""",
+    unsafe_allow_html=True,
+)
 
 c1, c2, c3 = st.columns(3)
-c1.markdown(
-    f'<div class="stat">⚡ <b>Points:</b> {stats["points"]}</div>',
-    unsafe_allow_html=True,
-)
-c2.markdown(
-    f'<div class="stat">📸 <b>Total Scans:</b> {stats["scans"]}</div>',
-    unsafe_allow_html=True,
-)
-c3.markdown(
-    f'<div class="stat">🛡️ <b>Estimated CO₂ Saved:</b> {stats["co2"]:.1f} kg</div>',
-    unsafe_allow_html=True,
-)
+c1.markdown(f'<div class="stat"><div class="stat-label">⚡ ECO-POINTS</div><div class="stat-value">{stats["points"]}</div></div>', unsafe_allow_html=True)
+c2.markdown(f'<div class="stat"><div class="stat-label">📸 TOTAL SCANS</div><div class="stat-value">{stats["scans"]}</div></div>', unsafe_allow_html=True)
+c3.markdown(f'<div class="stat"><div class="stat-label">🌱 EST. CO₂ BENEFIT</div><div class="stat-value">{stats["co2"]:.1f} kg</div></div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -810,7 +882,7 @@ with tab1:
             for step in res["prep_steps"]:
                 st.write(f"• {step}")
 
-            st.markdown(f"**Upcycling Idea:** {res['upcycling']}")
+            st.markdown(f"**Upcycling Idea:** {esc(res['upcycling'])}")
             st.caption(
                 "AI identification and CO₂ figures are estimates. "
                 "Verify local recycling and hazardous-waste rules before disposal."
@@ -969,3 +1041,6 @@ with tab4:
         **Estimated CO₂ Benefit:** `{stats["co2"]:.2f} kg`
         """
     )
+
+
+st.markdown("<div class='ww-footer'>WasteWise AI Portal • Recycle smarter, live greener ♻️</div>", unsafe_allow_html=True)
