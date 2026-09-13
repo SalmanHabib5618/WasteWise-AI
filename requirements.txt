@@ -1,0 +1,9 @@
+streamlit
+pillow
+pandas
+plotly
+folium
+streamlit-folium
+streamlit-js-eval
+requests
+google-genai
